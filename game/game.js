@@ -31,6 +31,24 @@ game.start = function(){
 		RUN_RIGHT: 2,
 		SHOOT: 3
 	}
+	
+	var collisions = null;
+	// Create a canvas element
+	var canvas = document.createElement('canvas');
+	canvas.width = 241;
+	canvas.height = 294;
+	var ctx = canvas.getContext('2d');
+	var imageObj = new Image();
+
+	imageObj.onload = function() {
+		ctx.drawImage(imageObj, 0, 0);
+		var imgd = ctx.getImageData(0, 0, 241, 294);
+		collisions = imgd.data;
+		console.log(collisions);
+
+	};
+	imageObj.src = "assets/collisionmap.png";	
+		
 	var move = 0;
 	var director = new lime.Director(document.body,800, 600),
 	    scene = new lime.Scene(),
@@ -163,7 +181,18 @@ game.start = function(){
 			zputnik.runAction(game.anims[game.newState]);
 			game.lastState = game.newState;
 		}
-
+		if (collisions != null) {
+			var color = 255;
+			var posX = parseInt((position.x - position2.x) / 4.8 );
+			var posY = 293;
+			do {
+				color = collisions[(posY*241 + posX)*4];
+				posY--;
+			} while (posY > 0 && color != 0);
+			//console.log(posX, posY);
+			position.y = (posY*2)+70;
+		}
+		
 		zputnik.setPosition(position); 		
 		floor.setPosition(position2); 		
 	}, this);	
