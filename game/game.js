@@ -20,6 +20,7 @@ goog.require('lime.SpriteSheet');
 goog.require('lime.SpriteSheet');
 goog.require('lime.parser.JSON');
 goog.require('lime.ASSETS.zputnik.json')
+goog.require('lime.ASSETS.zputnik_running.json')
 
 // entrypoint
 game.start = function(){
@@ -44,6 +45,7 @@ game.start = function(){
 */
 			
 	game.ss = new lime.SpriteSheet('assets/zputnik.png',lime.ASSETS.zputnik.json, lime.parser.JSON);
+	game.ss2 = new lime.SpriteSheet('assets/zputnik_running.png',lime.ASSETS.zputnik_running.json, lime.parser.JSON);
 			
 	var zputnik = new lime.Sprite().setPosition(80,440)
         .setFill(game.ss.getFrame('zputnik-idle-0.png'));
@@ -54,24 +56,31 @@ game.start = function(){
 		game.anims[game.state.IDLE] = new lime.animation.KeyframeAnimation();
 		game.anims[game.state.IDLE].delay= 1/16; // 1/16 sec between frames, too fast otherwise
 		for(var i=0;i<11;i++){ //add the frames
-			if (i == 7) continue;
+			if (i > 8) continue;
 			game.anims[game.state.IDLE].addFrame(game.ss.getFrame('zputnik-idle-'+i+'.png'));
 		}
 		// keyframe animation
 		game.anims[game.state.RUN_LEFT] = new lime.animation.KeyframeAnimation();
 		game.anims[game.state.RUN_LEFT].delay= 1/25; // 1/16 sec between frames, too fast otherwise
 		for(var i=0;i<14;i++){ //add the frames
-			if (i == 5) continue;
-			game.anims[game.state.RUN_LEFT].addFrame(game.ss.getFrame('zputnik-running-'+i+'.png'));
+//			if (i == 5) continue;
+			game.anims[game.state.RUN_LEFT].addFrame(game.ss2.getFrame('zputnik-running-'+i+'.png'));
 		}
 		// keyframe animation
 		game.anims[game.state.RUN_RIGHT] = new lime.animation.KeyframeAnimation();
 		game.anims[game.state.RUN_RIGHT].delay= 1/25; // 1/16 sec between frames, too fast otherwise
 		for(var i=0;i<14;i++){ //add the frames
-			if (i == 5) continue;
-			game.anims[game.state.RUN_RIGHT].addFrame(game.ss.getFrame('zputnik-running-'+i+'.png'));
+			if (i == 4) continue;
+			game.anims[game.state.RUN_RIGHT].addFrame(game.ss2.getFrame('zputnik-running-back-'+i+'.png'));
 		}
-		
+		// keyframe animation
+		game.anims[game.state.SHOOT] = new lime.animation.KeyframeAnimation();
+		game.anims[game.state.SHOOT].delay= 1/25; // 1/16 sec between frames, too fast otherwise
+		for(var i=0;i<20;i++){ //add the frames
+			//if (i == 1) continue;
+			game.anims[game.state.SHOOT].addFrame(game.ss.getFrame('zputnik-idle-fire-'+i+'.png'));
+		}
+				
 		zputnik.runAction(game.anims[game.state.IDLE]);
 
 
@@ -87,6 +96,10 @@ game.start = function(){
 	goog.events.listen(director, ['keydown'], function(e) {
 		switch(e.event.keyCode)
 		{
+		case 38:
+		    console.log(1);
+			game.newState = game.state.SHOOT
+			break;
 		case 39:
 		    console.log(1);
 			game.newState = game.state.RUN_LEFT
