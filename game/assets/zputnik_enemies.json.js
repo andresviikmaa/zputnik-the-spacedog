@@ -1,0 +1,114 @@
+goog.provide('lime.ASSETS.zputnik_enemies.json');
+goog.require('soy');
+
+lime.ASSETS.zputnik_enemies.json.data = function(opt_data) { 
+return {"frames": {
+
+"zputnik-enemy-bat-0.png":
+{
+	"frame": {"x":2,"y":2,"w":58,"h":40},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":100,"y":68,"w":58,"h":40},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-1.png":
+{
+	"frame": {"x":62,"y":26,"w":50,"h":38},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":108,"y":70,"w":50,"h":38},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-10.png":
+{
+	"frame": {"x":52,"y":156,"w":48,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":110,"y":69,"w":48,"h":32},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-11.png":
+{
+	"frame": {"x":2,"y":136,"w":48,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":109,"y":69,"w":48,"h":32},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-2.png":
+{
+	"frame": {"x":62,"y":2,"w":56,"h":22},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":109,"y":78,"w":56,"h":22},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-3.png":
+{
+	"frame": {"x":2,"y":170,"w":48,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":110,"y":77,"w":48,"h":28},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-4.png":
+{
+	"frame": {"x":54,"y":98,"w":50,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":109,"y":76,"w":50,"h":30},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-5.png":
+{
+	"frame": {"x":2,"y":76,"w":50,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":109,"y":76,"w":50,"h":30},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-6.png":
+{
+	"frame": {"x":54,"y":66,"w":50,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":110,"y":76,"w":50,"h":30},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-7.png":
+{
+	"frame": {"x":2,"y":44,"w":50,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":110,"y":75,"w":50,"h":30},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-8.png":
+{
+	"frame": {"x":2,"y":108,"w":50,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":109,"y":77,"w":50,"h":26},
+	"sourceSize": {"w":220,"h":160}
+},
+"zputnik-enemy-bat-9.png":
+{
+	"frame": {"x":54,"y":130,"w":50,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":109,"y":76,"w":50,"h":24},
+	"sourceSize": {"w":220,"h":160}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "zputnik_enemies.png",
+	"format": "RGBA8888",
+	"size": {"w":128,"h":256},
+	"scale": "0.4",
+	"smartupdate": "$TexturePacker:SmartUpdate:74b9df087942576b2351a9d981567546$"
+}
+}
+;
+}

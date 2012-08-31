@@ -19,8 +19,9 @@ goog.require('lime.animation.KeyframeAnimation');
 goog.require('lime.SpriteSheet');
 goog.require('lime.SpriteSheet');
 goog.require('lime.parser.JSON');
-goog.require('lime.ASSETS.zputnik.json')
-goog.require('lime.ASSETS.zputnik_running.json')
+goog.require('lime.ASSETS.zputnik.json');
+goog.require('lime.ASSETS.zputnik_running.json');
+goog.require('lime.ASSETS.zputnik_enemies.json');
 
 // entrypoint
 game.start = function(){
@@ -29,7 +30,8 @@ game.start = function(){
 		IDLE: 0,
 		RUN_LEFT: 1,
 		RUN_RIGHT: 2,
-		SHOOT: 3
+		SHOOT: 3,
+		BAT_ANIM: 4
 	}
 	
 	var collisions = null;
@@ -64,6 +66,7 @@ game.start = function(){
 			
 	game.ss = new lime.SpriteSheet('assets/zputnik.png',lime.ASSETS.zputnik.json, lime.parser.JSON);
 	game.ss2 = new lime.SpriteSheet('assets/zputnik_running.png',lime.ASSETS.zputnik_running.json, lime.parser.JSON);
+	game.ss3 = new lime.SpriteSheet('assets/zputnik_enemies.png',lime.ASSETS.zputnik_enemies.json, lime.parser.JSON);
 			
 	var zputnik = new lime.Sprite().setPosition(80,440)
         .setFill(game.ss.getFrame('zputnik-idle-0.png'));
@@ -99,11 +102,24 @@ game.start = function(){
 			game.anims[game.state.SHOOT].addFrame(game.ss.getFrame('zputnik-idle-fire-'+i+'.png'));
 		}
 				
+		// keyframe animation
+		game.anims[game.state.BAT_ANIM] = new lime.animation.KeyframeAnimation();
+		game.anims[game.state.BAT_ANIM].delay= 1/13; // 1/16 sec between frames, too fast otherwise
+		for(var i=0;i<12;i++){ //add the frames
+			if (i == 4 || i == 10) continue;
+			game.anims[game.state.BAT_ANIM].addFrame(game.ss3.getFrame('zputnik-enemy-bat-'+i+'.png'));
+		}
+
 		zputnik.runAction(game.anims[game.state.IDLE]);
 
-
-    //add target and title to the scene
+			
+	var bat = new lime.Sprite().setPosition(820,-330)
+        .setFill(game.ss3.getFrame('zputnik-enemy-bat-0.png'));
+	bat.runAction(game.anims[game.state.BAT_ANIM]);
     scene.appendChild(floor);
+	
+    //add target and title to the scene
+    floor.appendChild(bat);
 
     scene.appendChild(zputnik);
 
@@ -138,6 +154,7 @@ game.start = function(){
 	director.replaceScene(scene);
 
 	var velocity = 0.3;
+	var batVelocity = 0.1;
 	lime.scheduleManager.schedule(function(dt){
 	
 		var updateZputnik = false;
@@ -195,6 +212,13 @@ game.start = function(){
 		
 		zputnik.setPosition(position); 		
 		floor.setPosition(position2); 		
+		
+		batPos = bat.getPosition();
+		batPos.x -= batVelocity * dt;
+		if (batPos.x < -80) batPos.x = 1100;
+		batPos.y = -350 + parseInt(40 * Math.sin((batPos.x / 50)));
+		bat.setPosition(batPos);
+		
 	}, this);	
 }
 
