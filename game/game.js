@@ -160,6 +160,9 @@ game.start = function(){
 		var updateZputnik = false;
 		var position = zputnik.getPosition();
 		var position2 = floor.getPosition();
+		if (game.newState == game.state.SHOOT) {
+			position.y = 90;
+		}
 		if (game.newState == game.state.RUN_LEFT) {
 			position.x += velocity * dt;	// if dt is bigger we just move more
 			if (position.x > 390 && position2.x > -370) {
@@ -199,15 +202,20 @@ game.start = function(){
 			game.lastState = game.newState;
 		}
 		if (collisions != null) {
-			var color = 255;
 			var posX = parseInt((position.x - position2.x) / 4.8 );
-			var posY = 293;
+			var posY = (position.y - 90)  / 2;
+			var color = collisions[(posY*241 + posX)*4];
+			var color1 = 34;
+			var dir = (color == 255) ? -1 : 1; 
 			do {
-				color = collisions[(posY*241 + posX)*4];
-				posY--;
-			} while (posY > 0 && color != 0);
-			//console.log(posX, posY);
-			position.y = (posY*2)+70;
+				color1 = collisions[(posY*241 + posX)*4];
+				posY += dir;
+			} while ((posY > 0) && (posY < 294) && color == color1);
+			var newY =(posY*2)+70
+			//console.log(posX, posY, '|', position.y, newY);
+			if (Math.abs(position.y - newY) > 7) {
+				position.y = newY;
+			}
 		}
 		
 		zputnik.setPosition(position); 		
